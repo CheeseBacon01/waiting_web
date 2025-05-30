@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steam 特賣等候中...</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background-color: #2a3a53;
+      color: #66c0f4;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      margin-top: 2em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      margin-top: 1em;
+      padding: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+      animation: spin 5s linear infinite;
+      background-color: #2a3a53;
+    }
+
+    .pic{
+      margin-top: 1%;
+    }
+    .pic img{
+      width: 300px;
+      background-color: #2a3a53;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 20px 0;
+    }
+
+    .queue-info {
+      font-size: 18px;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    .loader {
+      border: 6px solid #2a475e;
+      border-top: 6px solid #66c0f4;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 20px auto;
+      animation: spin 1s linear infinite;
+    }
+
+    #fun-fact {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #66c0f4;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #66c0f4;
+      color: #000000;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    button:hover{
+      background-color: #3a9ad9;
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="logo">
+  <img src="logo.png" alt="Steam">
+</div>
+
+<div class="pic">
+  <img src="../waiting_web/cat.png" alt="cat">
+</div>
+
+<div class="container">
+  <h1>感謝您的耐心等待！</h1>
+  <p>Steam 商店目前有大量玩家進入，我們正在努力確保每位玩家都能順利進入！</p>
+
+  <div class="queue-info">
+    <p>您的排隊號碼：<span>#12,345</span></p>
+    <p>預計等待時間：<span>15 分鐘</span></p>
+  </div>
+
+  <div class="loader"></div>
+
+  <p id="fun-fact">🎮 Steam 最早是為了更新《Counter-Strike》而開發的</p>
+
+  <button>重新進入商店</button>
+</div>
+
+<script>
+  let index=0;
+  let arr=[
+    "🎮 你知道嗎？Steam 的首次發布是在 2003 年 9 月 12 日。",
+    "🎮 Steam 原本沒有「特賣」機制！",
+    "🎮 Steam 曾推出過「每日特賣」，但已取消！",
+    "🎮 Steam 成立的第一年只有 7 款遊戲！",
+    "🎮 Steam 退款機制最早來自歐盟法律！",
+    "🎮 Steam 有個「無限金錢」Bug，被一名玩家發現！",
+  ];
+
+  function update(){
+    index=(index+1)%arr.length;
+    document.getElementById("fun-fact").textContent=arr[index];
+  }
+  setInterval(update,3000);
+  button=document.querySelector("button");
+  button.addEventListener("click",()=>{
+    window.location.href="#";
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const queueNumberElement = document.querySelector(".queue-info p:nth-child(1) span");
+    const waitingTimeElement = document.querySelector(".queue-info p:nth-child(2) span");
+
+    const queueNumber = Math.floor(Math.random() * 91) + 10;
+    queueNumberElement.textContent = `#${queueNumber}`;
+
+    let waitingTime;
+    if (queueNumber <= 30) {
+      waitingTime = "5 minutes";
+    } else if (queueNumber <= 60) {
+      waitingTime = "10 minutes";
+    } else {
+      waitingTime = "15 minutes";
+    }
+    waitingTimeElement.textContent = waitingTime;
+  });
+</script>
+</body>
+</html>
